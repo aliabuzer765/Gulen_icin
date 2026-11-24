@@ -164,8 +164,12 @@ function revealFinal(){document.getElementById('finalMessage').classList.add('sh
 .music-intro.hidden{opacity:0;visibility:hidden;pointer-events:none}
 .music-intro-inner{max-width:560px;animation:introRise .9s both}
 .music-intro p{font-size:clamp(1.8rem,6vw,3.3rem);font-weight:800;line-height:1.2;letter-spacing:-.05em;margin:0 0 28px;background:linear-gradient(100deg,#fff0e8,#ff9fbe 55%,#c7b5ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.music-start{border:0;border-radius:999px;padding:16px 34px;color:#281522;font-size:1rem;font-weight:800;background:linear-gradient(110deg,#ffd6df,#ff82aa);box-shadow:0 12px 40px #ff6b9b45;transition:transform .2s}
-.music-start:active{transform:scale(.97)}
+.song-choices{display:grid;gap:13px;width:min(100%,390px);margin:0 auto}
+.song-choice{width:100%;border:1px solid #ffffff30;border-radius:18px;padding:17px 20px;color:#fff0e8;background:linear-gradient(110deg,#ffffff13,#ffffff08);font:inherit;font-weight:750;font-size:1rem;text-align:left;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:14px;transition:transform .2s,border-color .2s,background .2s;box-shadow:0 10px 28px #0002}
+.song-choice:active{transform:scale(.98)}.song-choice span:last-child{color:#ff9fbe;font-size:1.25rem}
+.song-choice:disabled{opacity:.65;cursor:wait}
+.song-error{min-height:24px;margin:14px 0 0!important;font-size:.9rem!important;letter-spacing:0!important;color:#ffd1df!important;background:none!important;-webkit-text-fill-color:#ffd1df!important;font-weight:500!important}
+@media(max-width:480px){.song-choice{padding:16px;font-size:.96rem}}
 .gift-step{display:none;max-width:620px;width:100%;animation:introRise .8s both}.gift-step.show{display:block}
 .gift-title{font-size:clamp(2rem,7vw,3.6rem)!important;margin:0 0 8px!important}.gift-subtitle{font-size:clamp(1rem,3vw,1.2rem)!important;line-height:1.65!important;margin:0 auto 8px!important;color:#e8d9e5!important;background:none!important;-webkit-text-fill-color:#e8d9e5!important;font-weight:500!important;letter-spacing:0!important}
 .rose-bouquet{width:min(100%,390px);height:auto;display:block;margin:0 auto 5px;overflow:visible;filter:drop-shadow(0 20px 35px #0008);animation:bouquetFloat 3.8s ease-in-out infinite}
@@ -178,8 +182,12 @@ function revealFinal(){document.getElementById('finalMessage').classList.add('sh
 </style>
 <div class="music-intro" id="musicIntro">
  <div class="music-intro-inner" id="musicStep">
-  <p>Öncelikle bu şarkıyı başlat, sonra kaydır bebeğim.</p>
-  <button class="music-start" id="startOurSong" type="button">Başlat ♡</button>
+  <p>Hangi şarkıyı istersin aşkım benim? 🎶</p>
+  <div class="song-choices">
+   <button class="song-choice" type="button" data-song="yan-sen-organik.mp3"><span>Gökhan Türkmen · Yan Sen (Organik)</span><span>♡</span></button>
+   <button class="song-choice" type="button" data-song="korkak.mp3"><span>Aslı Demirer feat. Gökhan Türkmen · Korkak</span><span>♡</span></button>
+  </div>
+  <p class="song-error" id="songError" aria-live="polite"></p>
  </div>
  <div class="gift-step" id="giftStep" aria-live="polite">
   <p class="gift-title">Önce bunları da al bakalım</p>
@@ -205,29 +213,30 @@ function revealFinal(){document.getElementById('finalMessage').classList.add('sh
 
  </div>
 </div>
-<audio id="ourSong" preload="auto">
- <source src="mp3indirdur-Burcu-Gunes-Gul-Kokusu.mp3" type="audio/mpeg">
-</audio>
+<audio id="ourSong" preload="none"></audio>
 <script>
 (function(){
  const intro=document.getElementById('musicIntro');
- const start=document.getElementById('startOurSong');
  const musicStep=document.getElementById('musicStep');
  const giftStep=document.getElementById('giftStep');
  const bouquet=document.querySelector('.rose-bouquet');
  const song=document.getElementById('ourSong');
- start.addEventListener('click',async()=>{
-  start.disabled=true;
-  start.textContent='♡';
+ const songError=document.getElementById('songError');
+ const songChoices=document.querySelectorAll('.song-choice');
+ songChoices.forEach(choice=>choice.addEventListener('click',async()=>{
+  songChoices.forEach(button=>button.disabled=true);
+  songError.textContent='Şarkın hazırlanıyor… ♡';
+  song.src=choice.dataset.song;
+  song.load();
   try{
    await song.play();
    musicStep.style.display='none';
    giftStep.classList.add('show');
   }catch(error){
-   start.disabled=false;
-   start.textContent='Tekrar dene ♡';
+   songChoices.forEach(button=>button.disabled=false);
+   songError.textContent='Şarkı başlatılamadı. Bir kez daha dener misin aşkım?';
   }
- });
+ }));
  const continueToSite=()=>intro.classList.add('hidden');
  bouquet.addEventListener('click',continueToSite);
  bouquet.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();continueToSite();}});
