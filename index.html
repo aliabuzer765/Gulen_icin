@@ -227,7 +227,7 @@ function revealFinal(){document.getElementById('finalMessage').classList.add('sh
  songChoices.forEach(choice=>choice.addEventListener('click',async()=>{
   songChoices.forEach(button=>button.disabled=true);
   songError.textContent='Şarkın hazırlanıyor… ♡';
-  song.src=choice.dataset.song;
+  song.src='./'+choice.dataset.song;
   song.load();
   try{
    await song.play();
