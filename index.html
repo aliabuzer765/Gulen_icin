@@ -169,11 +169,11 @@ function revealFinal(){document.getElementById('finalMessage').classList.add('sh
 .gift-step{display:none;max-width:620px;width:100%;animation:introRise .8s both}.gift-step.show{display:block}
 .gift-title{font-size:clamp(2rem,7vw,3.6rem)!important;margin:0 0 8px!important}.gift-subtitle{font-size:clamp(1rem,3vw,1.2rem)!important;line-height:1.65!important;margin:0 auto 8px!important;color:#e8d9e5!important;background:none!important;-webkit-text-fill-color:#e8d9e5!important;font-weight:500!important;letter-spacing:0!important}
 .rose-bouquet{width:min(100%,390px);height:auto;display:block;margin:0 auto 5px;overflow:visible;filter:drop-shadow(0 20px 35px #0008);animation:bouquetFloat 3.8s ease-in-out infinite}
-.rose-bouquet .flower{transform-box:fill-box;transform-origin:center;animation:flowerPop .8s both}.rose-bouquet .flower:nth-of-type(2){animation-delay:.12s}.rose-bouquet .flower:nth-of-type(3){animation-delay:.2s}.rose-bouquet .flower:nth-of-type(4){animation-delay:.28s}.rose-bouquet .flower:nth-of-type(5){animation-delay:.36s}
+.rose-bouquet .flower{animation:flowerFade .8s both}.rose-bouquet .flower:nth-of-type(2){animation-delay:.12s}.rose-bouquet .flower:nth-of-type(3){animation-delay:.2s}.rose-bouquet .flower:nth-of-type(4){animation-delay:.28s}.rose-bouquet .flower:nth-of-type(5){animation-delay:.36s}
 .gift-note{font-size:clamp(1.65rem,5.5vw,2.7rem)!important;margin:0 0 8px!important}.gift-copy{font-size:1rem!important;color:#f1dce7!important;margin:0 auto 22px!important;line-height:1.6!important;font-weight:500!important;letter-spacing:0!important;background:none!important;-webkit-text-fill-color:#f1dce7!important}
 @keyframes introRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 @keyframes bouquetFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-9px) rotate(1deg)}}
-@keyframes flowerPop{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
+@keyframes flowerFade{from{opacity:0}to{opacity:1}}
 @media(max-width:480px){.rose-bouquet{width:min(94%,330px)}.gift-copy{max-width:290px}}
 </style>
 <div class="music-intro" id="musicIntro">
@@ -182,8 +182,8 @@ function revealFinal(){document.getElementById('finalMessage').classList.add('sh
   <button class="music-start" id="startOurSong" type="button">Başlat ♡</button>
  </div>
  <div class="gift-step" id="giftStep" aria-live="polite">
-  <p class="gift-title">Sana küçük bir hediyem var…</p>
-  <svg class="rose-bouquet" viewBox="0 0 420 390" role="img" aria-label="Kırmızı güllerden oluşan bir buket">
+  <p class="gift-title">Önce bunları da al bakalım</p>
+  <svg class="rose-bouquet" viewBox="0 0 420 390" role="button" tabindex="0" aria-label="Gülleri al ve devam et">
    <defs>
     <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8e7df"/><stop offset=".55" stop-color="#d8b7b7"/><stop offset="1" stop-color="#a77c91"/></linearGradient>
     <linearGradient id="redRose" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff9aab"/><stop offset=".45" stop-color="#d51f50"/><stop offset="1" stop-color="#79102f"/></linearGradient>
@@ -202,9 +202,7 @@ function revealFinal(){document.getElementById('finalMessage').classList.add('sh
    <g class="flower" transform="translate(164 190) scale(.82)"><circle r="36" fill="url(#redRose)"/><g fill="#f06b85"><ellipse cy="-16" rx="15" ry="21"/><ellipse cy="16" rx="15" ry="21"/><ellipse cx="-16" rx="21" ry="15"/><ellipse cx="16" rx="21" ry="15"/></g><path d="M-18 -4Q-3 -27 14 -11Q28 7 6 20Q-18 23 -18 -4Z" fill="#b91543"/><path d="M-6 -4Q3 -17 12 -4Q16 6 4 11Q-8 10 -6 -4Z" fill="#ff9baa"/></g>
    <g class="flower" transform="translate(247 190) scale(.82)"><circle r="36" fill="url(#redRose)"/><g fill="#f06b85"><ellipse cy="-16" rx="15" ry="21"/><ellipse cy="16" rx="15" ry="21"/><ellipse cx="-16" rx="21" ry="15"/><ellipse cx="16" rx="21" ry="15"/></g><path d="M-18 -4Q-3 -27 14 -11Q28 7 6 20Q-18 23 -18 -4Z" fill="#b91543"/><path d="M-6 -4Q3 -17 12 -4Q16 6 4 11Q-8 10 -6 -4Z" fill="#ff9baa"/></g>
   </svg>
-  <p class="gift-note">Bunlar da seninnnn… 🌹</p>
-  <p class="gift-copy">Her biri senin kadar güzel olsun istedim. Gerçek güllerin yerini tutmaz belki ama hepsi sana, Aşkım. ❤️</p>
-  <button class="music-start" id="acceptFlowers" type="button">Güllerimi aldım ♡</button>
+
  </div>
 </div>
 <audio id="ourSong" preload="auto">
@@ -216,7 +214,7 @@ function revealFinal(){document.getElementById('finalMessage').classList.add('sh
  const start=document.getElementById('startOurSong');
  const musicStep=document.getElementById('musicStep');
  const giftStep=document.getElementById('giftStep');
- const accept=document.getElementById('acceptFlowers');
+ const bouquet=document.querySelector('.rose-bouquet');
  const song=document.getElementById('ourSong');
  start.addEventListener('click',async()=>{
   start.disabled=true;
@@ -230,7 +228,9 @@ function revealFinal(){document.getElementById('finalMessage').classList.add('sh
    start.textContent='Tekrar dene ♡';
   }
  });
- accept.addEventListener('click',()=>intro.classList.add('hidden'));
+ const continueToSite=()=>intro.classList.add('hidden');
+ bouquet.addEventListener('click',continueToSite);
+ bouquet.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();continueToSite();}});
 })();
 </script>
 </body>
