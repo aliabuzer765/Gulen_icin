@@ -166,12 +166,45 @@ function revealFinal(){document.getElementById('finalMessage').classList.add('sh
 .music-intro p{font-size:clamp(1.8rem,6vw,3.3rem);font-weight:800;line-height:1.2;letter-spacing:-.05em;margin:0 0 28px;background:linear-gradient(100deg,#fff0e8,#ff9fbe 55%,#c7b5ff);-webkit-background-clip:text;background-clip:text;color:transparent}
 .music-start{border:0;border-radius:999px;padding:16px 34px;color:#281522;font-size:1rem;font-weight:800;background:linear-gradient(110deg,#ffd6df,#ff82aa);box-shadow:0 12px 40px #ff6b9b45;transition:transform .2s}
 .music-start:active{transform:scale(.97)}
+.gift-step{display:none;max-width:620px;width:100%;animation:introRise .8s both}.gift-step.show{display:block}
+.gift-title{font-size:clamp(2rem,7vw,3.6rem)!important;margin:0 0 8px!important}.gift-subtitle{font-size:clamp(1rem,3vw,1.2rem)!important;line-height:1.65!important;margin:0 auto 8px!important;color:#e8d9e5!important;background:none!important;-webkit-text-fill-color:#e8d9e5!important;font-weight:500!important;letter-spacing:0!important}
+.rose-bouquet{width:min(100%,390px);height:auto;display:block;margin:0 auto 5px;overflow:visible;filter:drop-shadow(0 20px 35px #0008);animation:bouquetFloat 3.8s ease-in-out infinite}
+.rose-bouquet .flower{transform-box:fill-box;transform-origin:center;animation:flowerPop .8s both}.rose-bouquet .flower:nth-of-type(2){animation-delay:.12s}.rose-bouquet .flower:nth-of-type(3){animation-delay:.2s}.rose-bouquet .flower:nth-of-type(4){animation-delay:.28s}.rose-bouquet .flower:nth-of-type(5){animation-delay:.36s}
+.gift-note{font-size:clamp(1.65rem,5.5vw,2.7rem)!important;margin:0 0 8px!important}.gift-copy{font-size:1rem!important;color:#f1dce7!important;margin:0 auto 22px!important;line-height:1.6!important;font-weight:500!important;letter-spacing:0!important;background:none!important;-webkit-text-fill-color:#f1dce7!important}
 @keyframes introRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bouquetFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-9px) rotate(1deg)}}
+@keyframes flowerPop{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
+@media(max-width:480px){.rose-bouquet{width:min(94%,330px)}.gift-copy{max-width:290px}}
 </style>
 <div class="music-intro" id="musicIntro">
- <div class="music-intro-inner">
+ <div class="music-intro-inner" id="musicStep">
   <p>Öncelikle bu şarkıyı başlat, sonra kaydır bebeğim.</p>
   <button class="music-start" id="startOurSong" type="button">Başlat ♡</button>
+ </div>
+ <div class="gift-step" id="giftStep" aria-live="polite">
+  <p class="gift-title">Sana küçük bir hediyem var…</p>
+  <svg class="rose-bouquet" viewBox="0 0 420 390" role="img" aria-label="Kırmızı güllerden oluşan bir buket">
+   <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8e7df"/><stop offset=".55" stop-color="#d8b7b7"/><stop offset="1" stop-color="#a77c91"/></linearGradient>
+    <linearGradient id="redRose" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff9aab"/><stop offset=".45" stop-color="#d51f50"/><stop offset="1" stop-color="#79102f"/></linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9cc68c"/><stop offset="1" stop-color="#315b49"/></linearGradient>
+   </defs>
+   <g fill="none" stroke="#52765a" stroke-width="5" stroke-linecap="round"><path d="M205 188L171 330M205 188L220 337M205 188L266 326M205 188L133 316M205 188L294 304M205 188L95 293"/></g>
+   <g fill="url(#leaf)" stroke="#315b49" stroke-width="1.5"><path d="M161 260C111 225 91 251 147 278Q159 274 161 260Z"/><path d="M228 269C264 224 294 239 242 282Q229 280 228 269Z"/><path d="M128 292C80 267 60 291 116 310Q128 305 128 292Z"/><path d="M267 292C312 258 335 279 278 307Q266 304 267 292Z"/><path d="M188 292C150 260 132 280 180 307Q191 304 188 292Z"/></g>
+   <path d="M91 184Q210 220 329 184L277 359Q210 386 143 359Z" fill="url(#paper)" stroke="#f6dce0" stroke-width="2"/>
+   <path d="M91 184Q210 226 329 184L310 242Q210 270 110 242Z" fill="#fff4ed" opacity=".32"/>
+   <path d="M143 359Q210 378 277 359L210 292Z" fill="#8c5c73" opacity=".28"/>
+   <path d="M170 332Q210 314 250 332L238 352Q210 366 182 352Z" fill="#a83e62"/>
+   <path d="M207 338Q185 318 169 334Q188 358 207 347Q226 358 245 334Q229 318 207 338Z" fill="#f5b5c5" stroke="#9b3556" stroke-width="2"/>
+   <g class="flower" transform="translate(126 139)"><circle r="39" fill="url(#redRose)"/><g fill="#f06b85"><ellipse cy="-17" rx="16" ry="23"/><ellipse cy="17" rx="16" ry="23"/><ellipse cx="-17" rx="23" ry="16"/><ellipse cx="17" rx="23" ry="16"/></g><path d="M-19 -4Q-4 -29 15 -12Q31 8 6 22Q-18 25 -19 -4Z" fill="#b91543"/><path d="M-7 -5Q3 -18 13 -5Q18 6 4 12Q-8 11 -7 -5Z" fill="#ff9baa"/></g>
+   <g class="flower" transform="translate(205 101)"><circle r="43" fill="url(#redRose)"/><g fill="#f06b85"><ellipse cy="-19" rx="17" ry="24"/><ellipse cy="19" rx="17" ry="24"/><ellipse cx="-19" rx="24" ry="17"/><ellipse cx="19" rx="24" ry="17"/></g><path d="M-21 -5Q-4 -32 16 -13Q33 8 7 25Q-21 27 -21 -5Z" fill="#b91543"/><path d="M-8 -5Q3 -19 14 -5Q18 8 4 14Q-10 11 -8 -5Z" fill="#ff9baa"/></g>
+   <g class="flower" transform="translate(284 139)"><circle r="39" fill="url(#redRose)"/><g fill="#f06b85"><ellipse cy="-17" rx="16" ry="23"/><ellipse cy="17" rx="16" ry="23"/><ellipse cx="-17" rx="23" ry="16"/><ellipse cx="17" rx="23" ry="16"/></g><path d="M-19 -4Q-4 -29 15 -12Q31 8 6 22Q-18 25 -19 -4Z" fill="#b91543"/><path d="M-7 -5Q3 -18 13 -5Q18 6 4 12Q-8 11 -7 -5Z" fill="#ff9baa"/></g>
+   <g class="flower" transform="translate(164 190) scale(.82)"><circle r="36" fill="url(#redRose)"/><g fill="#f06b85"><ellipse cy="-16" rx="15" ry="21"/><ellipse cy="16" rx="15" ry="21"/><ellipse cx="-16" rx="21" ry="15"/><ellipse cx="16" rx="21" ry="15"/></g><path d="M-18 -4Q-3 -27 14 -11Q28 7 6 20Q-18 23 -18 -4Z" fill="#b91543"/><path d="M-6 -4Q3 -17 12 -4Q16 6 4 11Q-8 10 -6 -4Z" fill="#ff9baa"/></g>
+   <g class="flower" transform="translate(247 190) scale(.82)"><circle r="36" fill="url(#redRose)"/><g fill="#f06b85"><ellipse cy="-16" rx="15" ry="21"/><ellipse cy="16" rx="15" ry="21"/><ellipse cx="-16" rx="21" ry="15"/><ellipse cx="16" rx="21" ry="15"/></g><path d="M-18 -4Q-3 -27 14 -11Q28 7 6 20Q-18 23 -18 -4Z" fill="#b91543"/><path d="M-6 -4Q3 -17 12 -4Q16 6 4 11Q-8 10 -6 -4Z" fill="#ff9baa"/></g>
+  </svg>
+  <p class="gift-note">Bunlar da seninnnn… 🌹</p>
+  <p class="gift-copy">Her biri senin kadar güzel olsun istedim. Gerçek güllerin yerini tutmaz belki ama hepsi sana, Aşkım. ❤️</p>
+  <button class="music-start" id="acceptFlowers" type="button">Güllerimi aldım ♡</button>
  </div>
 </div>
 <audio id="ourSong" preload="auto">
@@ -181,18 +214,23 @@ function revealFinal(){document.getElementById('finalMessage').classList.add('sh
 (function(){
  const intro=document.getElementById('musicIntro');
  const start=document.getElementById('startOurSong');
+ const musicStep=document.getElementById('musicStep');
+ const giftStep=document.getElementById('giftStep');
+ const accept=document.getElementById('acceptFlowers');
  const song=document.getElementById('ourSong');
  start.addEventListener('click',async()=>{
   start.disabled=true;
   start.textContent='♡';
   try{
    await song.play();
-   intro.classList.add('hidden');
+   musicStep.style.display='none';
+   giftStep.classList.add('show');
   }catch(error){
    start.disabled=false;
    start.textContent='Tekrar dene ♡';
   }
  });
+ accept.addEventListener('click',()=>intro.classList.add('hidden'));
 })();
 </script>
 </body>
